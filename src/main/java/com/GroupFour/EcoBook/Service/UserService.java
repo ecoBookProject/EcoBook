@@ -21,7 +21,7 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public Optional<Object> createUser(UserModel usuario) {
+	public Optional<Object> registerUser(UserModel usuario) {
 		return Optional.ofNullable(repository.findByEmail(usuario.getEmail()).map(usuarioExistente -> {
 			return Optional.empty().orElseThrow(() -> new ObjectNotFoundException("Email ja cadastrado"));
 		}).orElseGet(() -> {
@@ -32,7 +32,7 @@ public class UserService {
 		}));
 	}
 
-	public Optional<?> logar(Optional<UserDTO> user){
+	public Optional<?> getCredential(Optional<UserDTO> user){
 		//Verifica o email ou no meu caso o user
 		return Optional.ofNullable(repository.findByEmail(user.get().getEmail()).map(usuarioExistente -> {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

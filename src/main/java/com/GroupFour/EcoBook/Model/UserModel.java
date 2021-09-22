@@ -1,15 +1,23 @@
 package com.GroupFour.EcoBook.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table (name = "tb_user")
@@ -48,11 +56,35 @@ public class UserModel {
 		@NotBlank(message = "Informe o Tipo de Usuario")
 		private String type_user;
 		
+		@OneToMany (mappedBy = "users", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+		@JsonIgnoreProperties ({"users"})
+		private List<BookModel> book = new ArrayList<>();
+		
 		//Contrutor da Classe
 		public UserModel() {
 			super();
 		}
 
+		public UserModel(String name, String email, String cpf,
+				String phone, String password, String cep,
+				String address, String number, String complement,
+				String district,  String city, String state, String type_user) {
+			super();
+			this.name = name;
+			this.email = email;
+			this.cpf = cpf;
+			this.phone = phone;
+			this.password = password;
+			this.cep = cep;
+			this.address = address;
+			this.number = number;
+			this.complement = complement;
+			this.district = district;
+			this.city = city;
+			this.state = state;
+			this.type_user = type_user;
+		}
+		
 		//Metodos GET e SET
 		public long getIdClient() {
 			return IdClient;

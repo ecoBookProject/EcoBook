@@ -196,7 +196,14 @@ public class UserModel {
 
 		public void setType_user(String type_user) {
 			this.type_user = type_user;
-		}	
-		
-	}
+		}
+
+		public List<BookModel> getBook() {
+			return book;
+		}
+
+		public void setBook(List<BookModel> book) {
+			this.book = book;
+		}		
+}
 

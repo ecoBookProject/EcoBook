@@ -66,23 +66,19 @@ public class BookModel {
 	@JsonIgnoreProperties ({"book"})
 	private CategoryModel category;
 	
+	@ManyToOne
+	@JoinColumn(name = "IdClient")
+	@JsonIgnoreProperties({"book"})
+	private UserModel users;
+	
 //construction	
 	
-	public BookModel() {
-		
-	}
+	public BookModel() {}
 	
-	public BookModel(@NotBlank(message = "Informe o título") String title,
-			@NotBlank(message = "Insira uma descrição") String description,
-			@NotNull(message = "Informe o valor do livro") Double price,
-			@NotBlank(message = "Insira o nome do autor") String author,
-			@NotNull(message = "Insira o ano de publicação") int year,
-			@NotNull(message = "Informe a quantidade do estoque") int inventory, @NotBlank String language,
-			@NotNull long isbn, @NotNull long ean, @NotBlank(message = "Informe o País") String country,
-			@NotBlank(message = "Informe a Editora") String publisher,
-			@NotBlank(message = "Informe o Formato") String format,
-			@NotNull(message = "Informe a quantidade páginas") int pages, CategoryModel category) {
-		
+	public BookModel(String title, String description, Double price,
+			String author, int year, int inventory, String language,
+			long isbn, long ean, String country, String publisher,
+			String format, int pages, CategoryModel category, UserModel users) {
 		
 		this.title = title;
 		this.description = description;
@@ -98,6 +94,7 @@ public class BookModel {
 		this.format = format;
 		this.pages = pages;
 		this.category = category;
+		this.users = users;
 		
 	}
 
@@ -219,6 +216,14 @@ public class BookModel {
 
 	public void setCategory(CategoryModel category) {
 		this.category = category;
+	}
+
+	public UserModel getUsers() {
+		return users;
+	}
+
+	public void setUsers(UserModel users) {
+		this.users = users;
 	}
 
 }

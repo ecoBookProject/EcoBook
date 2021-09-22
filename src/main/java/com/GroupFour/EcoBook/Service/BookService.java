@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.GroupFour.EcoBook.Model.BookModel;
 import com.GroupFour.EcoBook.Repository.BookRepository;
+import com.GroupFour.EcoBook.Service.Exception.DataIntegratyViolationException;
 
 
 

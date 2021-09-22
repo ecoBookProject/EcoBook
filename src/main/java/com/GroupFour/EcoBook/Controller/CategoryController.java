@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GroupFour.EcoBook.Model.CategoryModel;
 import com.GroupFour.EcoBook.Repository.CategoryRepository;
+import com.GroupFour.EcoBook.Service.CategoryService;
+import com.GroupFour.EcoBook.Service.Exception.DataIntegratyViolationException;
 
 @RestController
 @CrossOrigin("*")

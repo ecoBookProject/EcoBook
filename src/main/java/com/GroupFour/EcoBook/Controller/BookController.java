@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GroupFour.EcoBook.Model.BookModel;
 import com.GroupFour.EcoBook.Repository.BookRepository;
+import com.GroupFour.EcoBook.Service.BookService;
+import com.GroupFour.EcoBook.Service.Exception.DataIntegratyViolationException;
 
 
 

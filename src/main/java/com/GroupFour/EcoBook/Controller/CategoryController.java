@@ -19,10 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GroupFour.EcoBook.Model.CategoryModel;
 import com.GroupFour.EcoBook.Repository.CategoryRepository;
+import com.GroupFour.EcoBook.Service.CategoryService;
+import com.GroupFour.EcoBook.Service.Exception.DataIntegratyViolationException;
+
+import io.swagger.annotations.Api;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/category")
+@Api(tags = "Controlador de CATEGORY", description = "Utilitario de Postagens")
 public class CategoryController {
 
 	@Autowired

@@ -16,13 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.GroupFour.EcoBook.Dto.UserDTO;
 import com.GroupFour.EcoBook.Model.UserModel;
 import com.GroupFour.EcoBook.Repository.UserRepository;
+import com.GroupFour.EcoBook.Service.UserService;
+import com.GroupFour.EcoBook.Service.Exception.DataIntegratyViolationException;
+
+import io.swagger.annotations.Api;
 
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Api(tags = "Controlador de USER", description = "Utilitario de Postagens")
 public class UserController {
 

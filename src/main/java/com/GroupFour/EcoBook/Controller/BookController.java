@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.GroupFour.EcoBook.Model.BookModel;
 import com.GroupFour.EcoBook.Repository.BookRepository;
+import com.GroupFour.EcoBook.Service.BookService;
+import com.GroupFour.EcoBook.Service.Exception.DataIntegratyViolationException;
 
-
+import io.swagger.annotations.Api;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/book")
+@Api(tags = "Controlador de BOOK", description = "Utilitario de Postagens")
 public class BookController {
 
 	@Autowired

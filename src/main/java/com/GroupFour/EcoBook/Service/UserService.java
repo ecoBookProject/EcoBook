@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.GroupFour.EcoBook.Dto.UserDTO;
 import com.GroupFour.EcoBook.Model.UserModel;
 import com.GroupFour.EcoBook.Repository.UserRepository;
-
+import com.GroupFour.EcoBook.Service.Exception.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -21,38 +21,43 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public Optional<?> registerUser(UserModel newUser) {
-		return repository.findByEmail(newUser.getEmail()).map(usuarioExistente -> {
-			return Optional.empty();
+	public Optional<Object> createUser(UserModel usuario) {
+		return Optional.ofNullable(repository.findByEmail(usuario.getEmail()).map(usuarioExistente -> {
+			return Optional.empty().orElseThrow(() -> new ObjectNotFoundException("Email ja cadastrado"));
 		}).orElseGet(() -> {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			String passEncoder = encoder.encode(newUser.getPassword());
-			newUser.setPassword(passEncoder);
-			return Optional.ofNullable(repository.save(newUser));
-		});
+			String senhaEncoder = encoder.encode(usuario.getPassword());
+			usuario.setPassword(senhaEncoder);
+			return Optional.ofNullable(repository.save(usuario));
+		}));
 	}
 
-	public Optional<?> getCredential(Optional<UserDTO> login) {
-		return repository.findByEmail(login.get().getEmail()).map(usuarioExistente -> {
+	public Optional<?> logar(Optional<UserDTO> user){
+		//Verifica o email ou no meu caso o user
+		return Optional.ofNullable(repository.findByEmail(user.get().getEmail()).map(usuarioExistente -> {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			if(encoder.matches(login.get().getPassword(), usuarioExistente.getPassword())) {
-				String auth = login.get().getEmail() + ":" + login.get().getPassword();
-				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-				String authHeader = "Basic " + new String(encodedAuth);
-			
-				login.get().setToken(authHeader);
-				login.get().setIdClient(usuarioExistente.getIdClient());
-				login.get().setName(usuarioExistente.getName());
-				login.get().setPassword(usuarioExistente.getPassword());
-				login.get().setType_user(usuarioExistente.getType_user());
-				
-				return Optional.ofNullable(login);
+	
+			//verifica as senhas 
+			if(encoder.matches(user.get().getPassword(), usuarioExistente.getPassword())) {
+					
+					String auth = user.get().getEmail() + ":" + user.get().getPassword();
+					byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+					String authHeader = "Basic " + new String(encodedAuth);
+					
+					user.get().setToken(authHeader);
+					user.get().setIdClient(usuarioExistente.getIdClient());
+					user.get().setName(usuarioExistente.getName());
+					user.get().setType_user(usuarioExistente.getType_user());
+					user.get().setPassword(usuarioExistente.getPassword());
+					
+					return Optional.ofNullable(user);
 			}else {
-				return Optional.empty();
-			}	
+				return Optional.empty().orElseThrow(() -> new ObjectNotFoundException("Senha Incorreta")); //Senha esteja incorreta
+			}
+			
 		}).orElseGet(() -> {
-			return Optional.empty();
-		});
+			return Optional.empty().orElseThrow(() -> new ObjectNotFoundException("Usuario não registrado na base de dados.")); //Email não existente
+		}));
 	}
 	
 	

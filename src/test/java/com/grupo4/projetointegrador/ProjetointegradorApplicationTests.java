@@ -1,10 +1,10 @@
-package com.GroupFour.EcoBook;
+package com.grupo4.projetointegrador;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EcoBookApplicationTests {
+class ProjetointegradorApplicationTests {
 
 	@Test
 	void contextLoads() {

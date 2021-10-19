@@ -64,6 +64,15 @@ public class BookService {
 		return ResponseEntity.ok(user);
 	}
 
+	/*BUSCA POR AUTOR*/
+	@Transactional(readOnly = true)
+	public ResponseEntity<List<BookModel>> findByAuthor(String author) {
+		List<BookModel> user = repository.findByAuthor(author);
+		if (user.isEmpty()) {
+			throw new DataIntegratyViolationException("Não existe nenhum livro com esse autor.");
+		}
+		return ResponseEntity.ok(user);
+	}
 	public ResponseEntity<BookModel> created(BookModel book) {
 		return ResponseEntity.ok(repository.save(book));
 	}
@@ -327,5 +336,5 @@ public class BookService {
 		}
 		return null;
 	}
-
+ 
 }

@@ -67,6 +67,15 @@ public class BookController {
 		ResponseEntity<List<BookModel>> obj = service.findByDescriptionTitle(title);
 		return obj;
 	}
+	
+	/*
+	 * Busca pelo autor do livro
+	 */
+	@GetMapping(value = "/author/{author}")
+	public ResponseEntity<List<BookModel>> findByAuthor(@PathVariable String author) {
+		ResponseEntity<List<BookModel>> obj = service.findByAuthor(author);
+		return obj;
+	}
 
 	@PostMapping
 	public ResponseEntity<BookModel> post(@Valid @RequestBody BookModel category) {

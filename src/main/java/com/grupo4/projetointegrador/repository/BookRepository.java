@@ -16,5 +16,9 @@ public interface BookRepository extends JpaRepository<BookModel, Long> {
 	List<BookModel> findByDescriptionTitle(@Param("title") String title);
 
 	public List<BookModel> findAllByTitleContainingIgnoreCase(String title);
+	
+
+@Query("SELECT obj FROM BookModel obj WHERE UPPER(obj.author) LIKE CONCAT('%',UPPER(:author),'%')")
+	List<BookModel> findByAuthor(@Param("author") String author);
 
 }

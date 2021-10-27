@@ -72,6 +72,8 @@ public class BookModel {
 			private String photo;
 
 			private int quantityOrderP;
+			
+			private double partialValue;
 
 			@ManyToOne
 			@JoinColumn(name = "IdCategory")
@@ -97,8 +99,8 @@ public class BookModel {
 			}
 
 			public BookModel(String title, String description, Double price, String author, int year, int inventory,
-					String language, long isbn, long ean, String country, String publisher, String format, int pages,
-					CategoryModel category, UserModel users) {
+					String language, long isbn, long ean, String country, String publisher, String format, int pages, String photo, 
+					int quantityOrderP, double partialValue, CategoryModel category, UserModel users) {
 
 				this.title = title;
 				this.description = description;
@@ -267,5 +269,22 @@ public class BookModel {
 			public void setWishList(List<WishListModel> wishList) {
 				this.wishList = wishList;
 			}
+
+			public double getPartialValue() {
+				return partialValue;
+			}
+
+			public void setPartialValue(double partialValue) {
+				this.partialValue = partialValue;
+			}
+
+			public UserModel getUsers() {
+				return users;
+			}
+
+			public void setUsers(UserModel users) {
+				this.users = users;
+			}		
+			
 
 }
